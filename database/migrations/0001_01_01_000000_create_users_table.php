@@ -11,14 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+        // Sesuaikan nama tabel menjadi m_user sesuai gambar
+        Schema::create('m_user', function (Blueprint $table) {
+            $table->id('user_id'); // Primary Key (PK) sesuai gambar
+            // Foreign Key ke m_level
+            $table->unsignedBigInteger('level_id')->index(); 
+            $table->string('username', 20)->unique(); // string(20) sesuai gambar
+            $table->string('nama', 100); // string(100) sesuai gambar
+            $table->string('password', 255); // string(255) sesuai gambar
+            
+            // Tambahan wajib Laravel agar Filament/Auth tidak error
             $table->rememberToken();
             $table->timestamps();
+
+            // Definisi Foreign Key
+            $table->foreign('level_id')->references('level_id')->on('m_level')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -29,6 +36,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
+            // Sesuaikan foreignId ke user_id di m_user
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
@@ -42,7 +50,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('m_user');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

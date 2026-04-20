@@ -18,10 +18,12 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    //menambahkan level_id sebagai foreign key,username(string 20),
     protected $fillable = [
-        'name',
-        'email',
+        'nama',
         'password',
+        'level_id',
+        'username',
     ];
 
     /**
