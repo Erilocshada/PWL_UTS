@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Penjualan_detail;
 
 class Penjualan extends Model
 {
@@ -10,8 +12,12 @@ class Penjualan extends Model
     protected $table = 't_penjualan';
     protected $primaryKey = 'penjualan_id';
     protected $fillable = ['user_id', 'pembeli', 'penjualan_kode', 'penjualan_tanggal'];
-        function user()
+        public function user()
         {
             return $this->belongsTo(User::class, 'user_id', 'user_id');
+        }
+        function penjualan_detail()
+        {
+            return $this->hasMany(Penjualan_detail::class, 'penjualan_id', 'penjualan_id');
         }
 }

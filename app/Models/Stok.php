@@ -14,4 +14,12 @@ class Stok extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
     }
+    function barang()
+    {
+        return $this->belongsTo(Barang::class, 'barang_id', 'barang_id');
+    }
+    function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 }

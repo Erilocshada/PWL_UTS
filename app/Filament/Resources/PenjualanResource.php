@@ -32,7 +32,7 @@ class PenjualanResource extends Resource
                 ])->columns(2),
 
                 Forms\Components\Section::make('Detail Barang')->schema([
-                    Forms\Components\Repeater::make('details') // Relasi hasMany di model Penjualan
+                    Forms\Components\Repeater::make('Penjualan_detail') // Relasi hasMany di model Penjualan
                         ->relationship()
                         ->schema([
                             Forms\Components\Select::make('barang_id')
