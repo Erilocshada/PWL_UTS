@@ -13,19 +13,15 @@ return new class extends Migration
     {
         // Sesuaikan nama tabel menjadi m_user sesuai gambar
         Schema::create('m_user', function (Blueprint $table) {
-            $table->id('user_id'); // Primary Key (PK) sesuai gambar
-            // Foreign Key ke m_level
-            $table->unsignedBigInteger('level_id')->index(); 
-            $table->string('username', 20)->unique(); // string(20) sesuai gambar
-            $table->string('nama', 100); // string(100) sesuai gambar
-            $table->string('password', 255); // string(255) sesuai gambar
+            $table->id('user_id');
+            $table->foreignId('level_id')->constrained('m_level', 'level_id');
+            $table->string('username', 20)->unique();
+            $table->string('nama', 100);
+            $table->string('password', 255);
             
             // Tambahan wajib Laravel agar Filament/Auth tidak error
             $table->rememberToken();
             $table->timestamps();
-
-            // Definisi Foreign Key
-            $table->foreign('level_id')->references('level_id')->on('m_level')->onDelete('cascade');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

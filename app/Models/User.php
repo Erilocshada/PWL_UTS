@@ -18,6 +18,8 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    protected $table = 'm_user';
+    protected $primaryKey = 'user_id';
     //menambahkan level_id sebagai foreign key,username(string 20),
     protected $fillable = [
         'nama',
@@ -25,6 +27,10 @@ class User extends Authenticatable
         'level_id',
         'username',
     ];
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id', 'level_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
